@@ -1,0 +1,13 @@
+const MensajeError = ({texto}) => {
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col text-center">
+                    <div className="alert alert-danger py-4" role="alert"><b>{texto}</b></div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default MensajeError
