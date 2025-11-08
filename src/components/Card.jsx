@@ -7,7 +7,7 @@ const Card = ({item}) => {
                 </div>
                 <div className="card-body">
                     <p className="card-text fw-light">{item.nombre.length > 90 ? item.nombre.substr(0, 90) + "..." : item.nombre}</p>
-                    <p className="card-text fw-bold">${item.precio}</p>
+                    <p className="card-text fw-bold fs-5">${item.precio}</p>
                 </div>
             </div>
         </div>

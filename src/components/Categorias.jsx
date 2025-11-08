@@ -5,7 +5,7 @@ const Categorias = () => {
                 <div className="col">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <a className="nav-link text-dark fw-bold" aria-current="page" href="#">Productos</a>
+                            <a className="nav-link text-dark fw-bold" href="#">Productos</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-dark fw-bold" href="#">Notebooks</a>
@@ -14,7 +14,7 @@ const Categorias = () => {
                             <a className="nav-link text-dark fw-bold" href="#">Mouses</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-dark fw-bold" aria-disabled="true">Monitores</a>
+                            <a className="nav-link text-dark fw-bold" href="#">Monitores</a>
                         </li>
                     </ul>
                 </div>
