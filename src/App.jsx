@@ -1,3 +1,4 @@
+import Alta from "./components/Alta"
 import CarritoDeCompras from "./components/CarritosDeCompras"
 import Catalogo from "./components/Catalogo"
 import Footer from "./components/Footer"
@@ -7,6 +8,7 @@ function App() {
   return (
     <>
       <Header />
+      <Alta />
       <CarritoDeCompras />
       <Catalogo />
       <Footer />
