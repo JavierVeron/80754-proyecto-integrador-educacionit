@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Logo from "./Logo"
 
 const NavBar = () => {
@@ -10,7 +11,12 @@ const NavBar = () => {
                     </div>
                     <div className="col-md-4"></div>
                     <div className="col-md-4 d-flex align-items-center justify-content-end">
-                        <i className="bi bi-cart text-danger"></i>
+                        <Link to={"/alta"} title="Alta de Productos">
+                            <i className="bi bi-clipboard2-plus text-danger fs-4 mx-1"></i>
+                        </Link>
+                        <Link to={"/carrito"} title="Carrito de Compras">
+                            <i className="bi bi-cart text-danger text-danger fs-4"></i>
+                        </Link>
                     </div>
                 </div>
 
