@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
-import productos from "../assets/productos.json"
+import { useContext, useEffect, useState } from "react"
 import MensajeError from "./MensajeError";
+import { APIContext } from "./context/APIContext";
 
 const Alta = () => {
+    const {productos, totalProductos, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo} = useContext(APIContext);
     const [modoEdicion, setModoEdicion] = useState(false);
     const [idProducto, setIdProducto] = useState(0);
-    const [items, setItems] = useState(productos);
     const [nombre, setNombre] = useState("Notebook Lenovo ThinkBook 16 G6 ABP 16''AMD Ryzen 5 7430U 8GB SSD 512GB WUXGA MIL-STD-810H FREEDOS 21KK009DAR");
     const [precio, setPrecio] = useState(1007665);
     const [stock, setStock] = useState(2);
@@ -24,18 +24,6 @@ const Alta = () => {
         }
     })
 
-    const obtenerId = () => {
-        let max = 0;
-
-        items.forEach(item => {
-            if (item.id > max) {
-                max = item.id;
-            }
-        })
-
-        return max + 1;
-    }
-
     const vaciarFormulario = () => {
         setNombre("");
         setPrecio("");
@@ -47,17 +35,16 @@ const Alta = () => {
         setEnvio(false);
     }
 
-    const guardarProductoCatalogo = () => {        
-        const producto = {id:obtenerId(), nombre, precio, stock, marca, categoria, detalles, foto, envio};        
-        setItems([...items, producto]);
-        console.log("El Producto se agregó correctamente al Catálogo!");
+    const agregarProducto = () => {        
+        const producto = {nombre, precio, stock, marca, categoria, detalles, foto, envio};
+        agregarProductoCatalogo(producto);
         vaciarFormulario();
     }
 
-    const actualizarProducto = (id) => {
+    const editarProducto = (id) => {
         setModoEdicion(true);
         setIdProducto(id);
-        const producto = items.find(item => item.id == id);
+        const producto = productos.find(item => item.id == id);
         setNombre(producto.nombre);
         setPrecio(producto.precio);
         setStock(producto.stock);
@@ -68,18 +55,9 @@ const Alta = () => {
         setEnvio(producto.envio);
     }
 
-    const actualizarProductoCatalogo = () => {
-        const producto = items.find(item => item.id == idProducto);
-        producto.nombre = nombre;
-        producto.precio = precio;
-        producto.stock = stock;
-        producto.marca = marca;
-        producto.categoria = categoria;
-        producto.detalles = detalles;
-        producto.foto = foto;
-        producto.envio = envio;
-        setItems([...items]);
-        console.log("El Producto #" + idProducto + " se actualizó correctamente en el Catálogo!");
+    const editarProductoCatalogo = () => {
+        const producto = {nombre, precio, stock, marca, categoria, detalles, foto, envio};
+        actualizarProductoCatalogo(producto, idProducto);
         vaciarFormulario();
         setModoEdicion(false);
     }
@@ -88,9 +66,7 @@ const Alta = () => {
         const respuesta = confirm("Desea eliminar el Producto #" + id + "?");
 
         if (respuesta) {
-            const productosActualizados = items.filter(item => item.id != id);
-            setItems([...productosActualizados]);
-            console.log("El Producto #" + id + " se eliminó correctamente en el Catálogo!");
+            eliminarProductoCatalogo(id);
         }
     }
 
@@ -136,13 +112,13 @@ const Alta = () => {
                                 <input type="checkbox" className="form-check-input" checked={envio ? "checked" : ""} disabled={disabled} onChange={(e) => {setEnvio(e.target.checked)}} />
                                 <label className="form-check-label">Envío Gratis</label>
                             </div>
-                            <button type="button" className="btn btn-primary" onClick={() => {modoEdicion ? actualizarProductoCatalogo(idProducto) : guardarProductoCatalogo()}}>{modoEdicion ? "Actualizar" : "Enviar"}</button> {modoEdicion ? <button className="btn btn-primary mx-1" onClick={cancelarEdicion}>Cancelar</button> : ""}
+                            <button type="button" className="btn btn-primary" onClick={() => {modoEdicion ? editarProductoCatalogo(idProducto) : agregarProducto()}}>{modoEdicion ? "Actualizar" : "Enviar"}</button> {modoEdicion ? <button className="btn btn-primary mx-1" onClick={cancelarEdicion}>Cancelar</button> : ""}
                         </form>
                     </div>
                 </div>
             </div>
-            <div className="container-fluid my-5">
-                {items.length > 0 ? <div className="row">
+            {totalProductos() > 0 ? <div className="container-fluid my-5">
+                <div className="row">
                     <div className="col">
                         <table className="table">
                             <thead>
@@ -159,7 +135,7 @@ const Alta = () => {
                             </thead>
                             <tbody>
                                 {
-                                    items.map(item => (
+                                    productos.map(item => (
                                         <tr key={item.id} className={modoEdicion && item.id == idProducto ? "border border-danger border-2" : ""}>
                                             <td><img src={item.foto} alt={item.nombre} width={80} /></td>
                                             <td className="align-middle">{item.nombre}</td>
@@ -169,7 +145,7 @@ const Alta = () => {
                                             <td className="align-middle text-center">{item.categoria}</td>
                                             <td className="align-middle text-center">{item.envio ? <b>Sí</b> : "No"}</td>
                                             <td className="align-middle text-center">
-                                                <button className="btn btn-danger btn-sm text-white me-1" onClick={() => {actualizarProducto(item.id)}}>Editar</button>
+                                                <button className="btn btn-danger btn-sm text-white me-1" onClick={() => {editarProducto(item.id)}}>Editar</button>
                                                 <button className="btn btn-danger btn-sm text-white" onClick={() => {eliminarProducto(item.id)}} disabled={modoEdicion ? true : false}>Eliminar</button>
                                             </td>
                                         </tr>
@@ -178,8 +154,8 @@ const Alta = () => {
                             </tbody>
                         </table>
                     </div>
-                </div> : <MensajeError texto={"No hay Productos!"} />}
-            </div>
+                </div>
+            </div> : <MensajeError texto={"No hay Productos!"} />}
         </>
     )
 }

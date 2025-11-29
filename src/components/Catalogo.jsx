@@ -1,12 +1,12 @@
-import { useState } from "react"
-import productos from "../assets/productos.json"
+import { useContext } from "react"
 import Card from "./Card"
 import MensajeError from "./MensajeError";
+import { APIContext } from "./context/APIContext";
 
 const Catalogo = () => {
-    const [items, setItems] = useState(productos);
+    const {productos, totalProductos} = useContext(APIContext);
 
-    if (items.length == 0) {
+    if (totalProductos() == 0) {
         return (
             <MensajeError texto={"No hay Productos!"} />
         )
@@ -16,7 +16,7 @@ const Catalogo = () => {
         <div className="container">
             <div className="row">
                 {
-                    items.map(item => (
+                    productos.map(item => (
                         <Card key={item.id} item={item} />
                     ))
                 }
