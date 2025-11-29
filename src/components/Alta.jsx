@@ -57,7 +57,7 @@ const Alta = () => {
     const actualizarProducto = (id) => {
         setModoEdicion(true);
         setIdProducto(id);
-        const producto = productos.find(item => item.id == id);
+        const producto = items.find(item => item.id == id);
         setNombre(producto.nombre);
         setPrecio(producto.precio);
         setStock(producto.stock);
@@ -69,7 +69,7 @@ const Alta = () => {
     }
 
     const actualizarProductoCatalogo = () => {
-        const producto = productos.find(item => item.id == idProducto);
+        const producto = items.find(item => item.id == idProducto);
         producto.nombre = nombre;
         producto.precio = precio;
         producto.stock = stock;
@@ -78,9 +78,23 @@ const Alta = () => {
         producto.detalles = detalles;
         producto.foto = foto;
         producto.envio = envio;
-        setItems([...productos]);
+        setItems([...items]);
         console.log("El Producto #" + idProducto + " se actualizó correctamente en el Catálogo!");
         vaciarFormulario();
+        setModoEdicion(false);
+    }
+
+    const eliminarProducto = (id) => {
+        const respuesta = confirm("Desea eliminar el Producto #" + id + "?");
+
+        if (respuesta) {
+            const productosActualizados = items.filter(item => item.id != id);
+            setItems([...productosActualizados]);
+            console.log("El Producto #" + id + " se eliminó correctamente en el Catálogo!");
+        }
+    }
+
+    const cancelarEdicion = () => {
         setModoEdicion(false);
     }
 
@@ -122,7 +136,7 @@ const Alta = () => {
                                 <input type="checkbox" className="form-check-input" checked={envio ? "checked" : ""} disabled={disabled} onChange={(e) => {setEnvio(e.target.checked)}} />
                                 <label className="form-check-label">Envío Gratis</label>
                             </div>
-                            <button type="button" className="btn btn-primary" onClick={() => {modoEdicion ? actualizarProductoCatalogo(idProducto) : guardarProductoCatalogo()}}>{modoEdicion ? "Actualizar" : "Enviar"}</button>
+                            <button type="button" className="btn btn-primary" onClick={() => {modoEdicion ? actualizarProductoCatalogo(idProducto) : guardarProductoCatalogo()}}>{modoEdicion ? "Actualizar" : "Enviar"}</button> {modoEdicion ? <button className="btn btn-primary mx-1" onClick={cancelarEdicion}>Cancelar</button> : ""}
                         </form>
                     </div>
                 </div>
@@ -139,7 +153,6 @@ const Alta = () => {
                                     <th className="text-center">Stock</th>
                                     <th className="text-center">Marca</th>
                                     <th className="text-center">Categoría</th>
-                                    {/* <th className="text-center">Detalles</th> */}
                                     <th className="text-center">Envío</th>
                                     <th className="text-center">&nbsp;</th>
                                 </tr>
@@ -147,18 +160,17 @@ const Alta = () => {
                             <tbody>
                                 {
                                     items.map(item => (
-                                        <tr key={item.id}>
+                                        <tr key={item.id} className={modoEdicion && item.id == idProducto ? "border border-danger border-2" : ""}>
                                             <td><img src={item.foto} alt={item.nombre} width={80} /></td>
                                             <td className="align-middle">{item.nombre}</td>
                                             <td className="align-middle text-center">${item.precio}</td>
                                             <td className="align-middle text-center">{item.stock}</td>
                                             <td className="align-middle text-center">{item.marca}</td>
                                             <td className="align-middle text-center">{item.categoria}</td>
-                                            {/* <td className="align-middle">{item.detalles}</td> */}
                                             <td className="align-middle text-center">{item.envio ? <b>Sí</b> : "No"}</td>
                                             <td className="align-middle text-center">
                                                 <button className="btn btn-danger btn-sm text-white me-1" onClick={() => {actualizarProducto(item.id)}}>Editar</button>
-                                                <button className="btn btn-danger btn-sm text-white">Eliminar</button>
+                                                <button className="btn btn-danger btn-sm text-white" onClick={() => {eliminarProducto(item.id)}} disabled={modoEdicion ? true : false}>Eliminar</button>
                                             </td>
                                         </tr>
                                     ))
