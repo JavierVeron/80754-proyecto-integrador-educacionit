@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "nombre": "Notebook ASUS Vivobook 15 15.6 AMD Ryzen 7 5825U 16GB DDR4 SSD 512GB Win11 M1502YA-NJ590W",
         "precio": 1167200,
         "stock": 10,
@@ -11,7 +11,7 @@
         "envio": false
     },
     {
-        "id": 2,
+        "id": "2",
         "nombre": "Notebook ASUS Vivobook Go 15 15.6 AMD Ryzen 5 7520U 8GB DDR5 SSD 512GB Win11 E1504FA-NJ179W",
         "precio": 857800,
         "stock": 9,
@@ -22,7 +22,7 @@
         "envio": false
     },
     {
-        "id": 3,
+        "id": "3",
         "nombre": "Notebook ASUS ROG Strix G16 16 Intel Core Ultra 9 275HX 32GB DDR5 SSD 1TB RTX 5070 Ti 2.5K Win11 G615LR-S5072W",
         "precio": 5969400,
         "stock": 6,
@@ -32,7 +32,7 @@
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47468_Notebook_ASUS_ROG_Strix_G16_16__Intel_Core_Ultra_9_275HX_32GB_DDR5_SSD_1TB_RTX_5070_Ti_2.5K_Win11_G615LR-S5072W_354fd3b0-grn.jpg",
         "envio": true
     },{
-        "id": 4,
+        "id": "4",
         "nombre": "Notebook ASUS ROG Strix SCAR 18 18 Intel Core Ultra 9 275HX 32GB DDR5 SSD 2TB RTX 5080 2.5K 240Hz Win11 G835LW-SA024W",
         "precio": 8287750,
         "stock": 4,
@@ -43,7 +43,7 @@
         "envio": true
     },
     {
-        "id": 5,
+        "id": "5",
         "nombre": "Mouse Glorious Model I V2 Black 26000 DPI RGB",
         "precio":  97000,
         "stock": 10,
@@ -54,7 +54,7 @@
         "envio": false
     },
     {
-        "id": 6,
+        "id": "6",
         "nombre": "Mouse Glorious Model D Wireless 2.4Ghz Bluetooth 5.2 Matte Black 68gr 110hs",
         "precio": 119800,
         "stock": 7,
@@ -65,7 +65,7 @@
         "envio": true
     },
     {
-        "id": 7,
+        "id": "7",
         "nombre": "Monitor Lenovo ThinkVision S22i-30 21.5 FHD IPS 75Hz Anti Glare VESA",
         "precio": 151900,
         "stock": 10,
@@ -76,7 +76,7 @@
         "envio": false
     },
     {
-        "id": 8,
+        "id": "8",
         "nombre": "Monitor Gamer Acer Nitro 23.8 KG241Y FHD VA 180Hz 1ms AMD FreeSync Premium",
         "precio": 245400,
         "stock": 6,
@@ -87,7 +87,7 @@
         "envio": true
     },
     {
-        "id": 9,
+        "id": "9",
         "nombre": "Monitor Gamer AsRock Phantom PG32QF2B 31.5 VA QHD 1440p 165Hz FreeSync Antena WiFi Integrada",
         "precio": 595500,
         "stock": 3,

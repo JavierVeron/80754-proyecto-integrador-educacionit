@@ -1,51 +1,43 @@
-import { createContext, useState } from "react"
-import productosJSON from "../../assets/productos.json"
+import { createContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import MockAPI from "../MockAPI";
 
 export const ContextAPI = createContext();
 
 const ContextAPIProvider = ({children}) => {
-    const [productos, setProductos] = useState(productosJSON);
+    const [productos, setProductos] = useState([]);
+    const [productosActualizados, setProductosActualizados] = useState(true);
     const [carrito, setCarrito] = useState([]);
+    //const navigate = useNavigate();
+
+    useEffect(() => {
+        (async () => {
+            if (productosActualizados) {
+                let resultado = await MockAPI.get("/productos");
+                setProductos(resultado.data);
+                setProductosActualizados(false);
+            }
+        })();
+    }, [])
 
     const totalProductosCatalogo = () => {
         return productos.length;
     }
 
-    const obtenerId = () => {
-        let max = 0;
-
-        productos.forEach(item => {
-            if (item.id > max) {
-                max = item.id;
-            }
-        })
-
-        return max + 1;
-    }
-
     const agregarProductoCatalogo = (producto) => {        
-        const item = {id:obtenerId(), ...producto};        
-        setProductos([...productos, item]);
+        MockAPI.post("/productos", producto);
         console.log("El Producto se agregó correctamente al Catálogo!");
+        setProductosActualizados(true);
     }
 
     const actualizarProductoCatalogo = (producto, idProducto) => {
-        const item = productos.find(item => item.id == idProducto);
-        item.nombre = producto.nombre;
-        item.precio = producto.precio;
-        item.stock = producto.stock;
-        item.marca = producto.marca;
-        item.categoria = producto.categoria;
-        item.detalles = producto.detalles;
-        item.foto = producto.foto;
-        item.envio = producto.envio;
-        setProductos([...productos]);
+        MockAPI.put("/productos/" + idProducto, producto);
         console.log("El Producto #" + idProducto + " se actualizó correctamente en el Catálogo!");
+        setProductosActualizados(true);
     }
 
     const eliminarProductoCatalogo = (idProducto) => {
-        const productosActualizados = productos.filter(item => item.id != idProducto);
-        setProductos([...productosActualizados]);
+        MockAPI.delete("/productos/" + idProducto);
         console.log("El Producto #" + idProducto + " se eliminó correctamente en el Catálogo!");
     }
 
@@ -101,7 +93,18 @@ const ContextAPIProvider = ({children}) => {
         }
     }
 
-    return <ContextAPI.Provider value={{productos, carrito, totalProductosCatalogo, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo, agregarProductoCarrito, eliminarProductoCarrito, vaciarCarrito, totalProductosCarrito, sumaTotalProductosCarrito, incrementarItem, decrementarItem}}>
+    const agregarPedido = () => {
+        const fechaActual = new Date();
+        const fecha = `${fechaActual.getDate()}-${fechaActual.getMonth()+1}-${fechaActual.getFullYear()}`;
+        const hora = `${fechaActual.getHours()}:${fechaActual.getMinutes()}:${fechaActual.getSeconds()}`;
+        const pedido = {productos:[...carrito], fecha, hora, total:sumaTotalProductosCarrito()};
+        MockAPI.post("/pedidos", pedido);
+        console.log("El Pedido se realizó correctamente!");
+        vaciarCarrito();
+        //navigate("/", {replace:true});
+    }
+
+    return <ContextAPI.Provider value={{productos, carrito, totalProductosCatalogo, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo, agregarProductoCarrito, eliminarProductoCarrito, vaciarCarrito, totalProductosCarrito, sumaTotalProductosCarrito, incrementarItem, decrementarItem, agregarPedido}}>
         {children}
     </ContextAPI.Provider>
 }
