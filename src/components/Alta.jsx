@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
 import MensajeError from "./MensajeError";
-import { APIContext } from "./context/APIContext";
+import { ContextAPI } from "./context/ContextAPI";
 
 const Alta = () => {
-    const {productos, totalProductos, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo} = useContext(APIContext);
+    const {productos, totalProductosCatalogo, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo} = useContext(ContextAPI);
     const [modoEdicion, setModoEdicion] = useState(false);
     const [idProducto, setIdProducto] = useState(0);
     const [nombre, setNombre] = useState("Notebook Lenovo ThinkBook 16 G6 ABP 16''AMD Ryzen 5 7430U 8GB SSD 512GB WUXGA MIL-STD-810H FREEDOS 21KK009DAR");
@@ -117,7 +117,7 @@ const Alta = () => {
                     </div>
                 </div>
             </div>
-            {totalProductos() > 0 ? <div className="container-fluid my-5">
+            {totalProductosCatalogo() > 0 ? <div className="container-fluid my-5">
                 <div className="row">
                     <div className="col">
                         <table className="table">

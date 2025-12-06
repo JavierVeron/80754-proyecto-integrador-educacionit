@@ -5,7 +5,7 @@
         "precio": 1167200,
         "stock": 10,
         "marca": "Asus",
-        "categoria": "Notebooks",
+        "categoria": "notebooks",
         "detalles": "Color Gris Claro, Tipo Notebook",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_46549_Notebook_ASUS_Vivobook_15_15.6__AMD_Ryzen_7_5825U_16GB_DDR4_SSD_512GB_Win11_M1502YA-NJ590W_c0af72d0-grn.jpg",
         "envio": false
@@ -16,7 +16,7 @@
         "precio": 857800,
         "stock": 9,
         "marca": "Asus",
-        "categoria": "Notebooks",
+        "categoria": "notebooks",
         "detalles": "Color Negro, Tipo Notebook",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_44774_Notebook_ASUS_Vivobook_Go_15_15.6__AMD_Ryzen_5_7520U_8GB_DDR5_SSD_512GB_Win11_E1504FA-NJ179W_4ef801e7-grn.jpg",
         "envio": false
@@ -27,7 +27,7 @@
         "precio": 5969400,
         "stock": 6,
         "marca": "Asus",
-        "categoria": "Notebooks",
+        "categoria": "notebooks",
         "detalles": "Color Negro, Tipo Notebook",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47468_Notebook_ASUS_ROG_Strix_G16_16__Intel_Core_Ultra_9_275HX_32GB_DDR5_SSD_1TB_RTX_5070_Ti_2.5K_Win11_G615LR-S5072W_354fd3b0-grn.jpg",
         "envio": true
@@ -37,7 +37,7 @@
         "precio": 8287750,
         "stock": 4,
         "marca": "Asus",
-        "categoria": "Notebooks",
+        "categoria": "notebooks",
         "detalles": "Color Gris Negro, Tipo Notebook",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47466_Notebook_ASUS_ROG_Strix_SCAR_18_18__Intel_Core_Ultra_9_275HX_32GB_DDR5_SSD_2TB_RTX_5080_2.5K_240Hz_Win11_G835LW-SA024W_948fd5fe-grn.jpg",
         "envio": true
@@ -48,7 +48,7 @@
         "precio":  97000,
         "stock": 10,
         "marca": "Glorius",
-        "categoria": "Mouses",
+        "categoria": "mouses",
         "detalles": "Color Negro, Cantidad de botones 9",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_42603_Mouse_Glorious_Model_I_V2_Black_26000_DPI_RGB_2ea13f74-grn.jpg",
         "envio": false
@@ -59,7 +59,7 @@
         "precio": 119800,
         "stock": 7,
         "marca": "Glorius",
-        "categoria": "Mouses",
+        "categoria": "mouses",
         "detalles": "Color Negro, Cantidad de botones 6",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_32284_Mouse_Glorious_Model_D_Wireless_2.4Ghz_Bluetooth_5.2_Matte_Black_68gr_110hs_196cd3b0-grn.jpg",
         "envio": true
@@ -70,7 +70,7 @@
         "precio": 151900,
         "stock": 10,
         "marca": "Lenovo",
-        "categoria": "Monitores",
+        "categoria": "monitores",
         "detalles": "Tipo de iluminación WLED, Tipo de panel IPS, Pantalla curva No",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_43816_Monitor_Lenovo_ThinkVision_S22i-30_21.5__FHD_IPS_75Hz_Anti_Glare_VESA_a2a37396-grn.jpg",
         "envio": false
@@ -81,7 +81,7 @@
         "precio": 245400,
         "stock": 6,
         "marca": "Acer",
-        "categoria": "Monitores",
+        "categoria": "monitores",
         "detalles": "Tipo de iluminación LED, Tipo de panel VA, Pantalla curva No",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_40508_Monitor_Gamer_Acer_Nitro_23.8__KG241Y_FHD_VA_180Hz_1ms_AMD_FreeSync_Premium_d6148189-grn.jpg",
         "envio": true
@@ -92,7 +92,7 @@
         "precio": 595500,
         "stock": 3,
         "marca": "AsRock",
-        "categoria": "Monitores",
+        "categoria": "monitores",
         "detalles": "Tipo de iluminación LED, Tipo de panel VA, Pantalla curva No",
         "foto": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_46408_Monitor_Gamer_AsRock_Phantom_PG32QF2B_31.5__VA_QHD_1440p_165Hz_FreeSync_Antena_WiFi_Integrada_84b3d2e2-grn.jpg",
         "envio": true

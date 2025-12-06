@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom"
 import Logo from "./Logo"
+import { useContext } from "react"
+import { ContextAPI } from "./context/ContextAPI"
 
 const NavBar = () => {
+    const {totalProductosCarrito} = useContext(ContextAPI);
+
     return (
         <div className="container-fluid bg-dark py-3">
             <div className="container">
@@ -14,8 +18,9 @@ const NavBar = () => {
                         <Link to={"/alta"} title="Alta de Productos">
                             <i className="bi bi-clipboard2-plus text-danger fs-4 mx-1"></i>
                         </Link>
-                        <Link to={"/carrito"} title="Carrito de Compras">
+                        <Link to={"/carrito"} title="Carrito de Compras" className="position-relative">
                             <i className="bi bi-cart text-danger text-danger fs-4"></i>
+                            <span className="position-absolute top-0 end translate-middle badge rounded-pill bg-danger">{totalProductosCarrito()}</span>
                         </Link>
                     </div>
                 </div>

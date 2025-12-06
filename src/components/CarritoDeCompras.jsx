@@ -1,0 +1,72 @@
+import { useContext } from "react"
+import MensajeError from "./MensajeError";
+import { ContextAPI } from "./context/ContextAPI";
+
+const CarritoDeCompras = () => {
+    const {carrito, totalProductosCarrito, sumaTotalProductosCarrito, vaciarCarrito, eliminarProductoCarrito, incrementarItem, decrementarItem} = useContext(ContextAPI);
+
+    if (totalProductosCarrito() == 0) {
+        return (
+            <MensajeError texto={"No hay Productos en el Carrito!"} />
+        )
+    }
+
+    return (
+        <div className="container my-5">
+            <div className="row">
+                <div className="col-md-9 p-3 bg-white rounded-5">
+                    <table className="table">
+                        <tbody>
+                            <tr className="border-white">
+                                <td colSpan={3} className="text-end">
+                                    <button type="button" className="btn btn-outline-danger" onClick={vaciarCarrito}><i className="bi bi-trash"></i> Vaciar</button>
+                                </td>
+                            </tr>
+                            {
+                                carrito.map(item => (
+                                    <tr key={item.id}>
+                                        <td className="align-middle"><img src={item.foto} alt={item.nombre} width={80} /></td>
+                                        <td className="align-bottom">
+                                            <div>{item.nombre.length > 50 ? item.nombre.substr(0, 50) : item.nombre}</div>
+                                            <div className="text-secondary mx-5 px-1" style={{fontSize:"10px"}}>{item.cantidad == item.stock ? "Límite de compra" : ""}</div>
+                                            <div>
+                                                <button className="btn btn-outline-danger" onClick={() => {eliminarProductoCarrito(item.id)}}><i className="bi bi-trash"></i></button>
+                                                <div className="btn-group mx-2" role="group">
+                                                <button type="button" className="btn btn-outline-danger" onClick={() => {decrementarItem(item.id)}} disabled={item.cantidad > 1 ? false : true}>-</button>
+                                                <button type="button" className="btn btn-outline-danger text-dark fw-bold">{item.cantidad}</button>
+                                                <button type="button" className="btn btn-outline-danger" onClick={() => {incrementarItem(item.id)}} disabled={item.cantidad == item.stock ? true : false}>+</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            <div>
+                                                <b className="fs-4">${item.precio}</b>{item.cantidad > 1 ? <span style={{fontSize:"12px"}}><br />Por unidad <b>${item.precio * item.cantidad}</b></span> : ""}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="col-md-3 p-3 bg-white rounded-5">
+                    <h2>Resumen</h2>
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td>{totalProductosCarrito()} Productos</td>
+                                <td className="text-end"><b>${sumaTotalProductosCarrito()}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td className="text-end"><b><i className="bi bi-cash-coin"></i> ${sumaTotalProductosCarrito()}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default CarritoDeCompras
