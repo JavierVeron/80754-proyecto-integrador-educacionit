@@ -16,24 +16,17 @@ const CarritoReducer = (state=initialState, action) => {
 
             if (producto) {
                 producto.cantidad++;
-
-                return {
-                    ...state,
-                    items:[...state.items],
-                    cantidad:state.items.reduce((acum, item) => acum += item.cantidad, 0),
-                    sumaTotal:state.items.reduce((acum, item) => acum += item.cantidad * item.precio, 0)
-                }
             } else {
                 producto = productosJSON.find(item => item.id == action.payload);
                 producto.cantidad = 1;
                 state.items.push(producto);
+            }
 
-                return {
-                    ...state,
-                    items:[...state.items],
-                    cantidad:state.items.reduce((acum, item) => acum += item.cantidad, 0),
-                    sumaTotal:state.items.reduce((acum, item) => acum += item.cantidad * item.precio, 0)
-                }
+            return {
+                ...state,
+                items:[...state.items],
+                cantidad:state.items.reduce((acum, item) => acum += item.cantidad, 0),
+                sumaTotal:state.items.reduce((acum, item) => acum += item.cantidad * item.precio, 0)
             }
         case ELIMINAR_PRODUCTO_CARRITO:
             const carritoActualizado = state.items.filter(item => item.id != action.payload);
