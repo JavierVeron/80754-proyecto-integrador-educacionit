@@ -1,9 +1,14 @@
 import { useContext, useEffect, useState } from "react"
 import MensajeError from "./MensajeError";
 import { ContextAPI } from "./context/ContextAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { ACTUALIZAR_PRODUCTO_CATALOGO_ACTION, AGREGAR_PRODUCTO_CATALOGO_ACTION, ELIMINAR_PRODUCTO_CATALOGO_ACTION } from "./redux/actions/CatalogoActions";
 
 const Alta = () => {
-    const {productos, totalProductosCatalogo, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo} = useContext(ContextAPI);
+    //const {productos, totalProductosCatalogo, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo} = useContext(ContextAPI);
+    const productos = useSelector((state) => state.catalogo.items);
+    const totalProductosCatalogo = useSelector((state) => state.catalogo.cantidad);
+    const dispatch = useDispatch();
     const [modoEdicion, setModoEdicion] = useState(false);
     const [idProducto, setIdProducto] = useState(0);
     const [nombre, setNombre] = useState("Notebook Lenovo ThinkBook 16 G6 ABP 16''AMD Ryzen 5 7430U 8GB SSD 512GB WUXGA MIL-STD-810H FREEDOS 21KK009DAR");
@@ -37,7 +42,8 @@ const Alta = () => {
 
     const agregarProducto = () => {        
         const producto = {nombre, precio, stock, marca, categoria, detalles, foto, envio};
-        agregarProductoCatalogo(producto);
+        //agregarProductoCatalogo(producto);
+        dispatch(AGREGAR_PRODUCTO_CATALOGO_ACTION(producto));
         vaciarFormulario();
     }
 
@@ -55,9 +61,10 @@ const Alta = () => {
         setEnvio(producto.envio);
     }
 
-    const editarProductoCatalogo = () => {
+    const editarProductoCatalogo = (idProducto) => {
         const producto = {nombre, precio, stock, marca, categoria, detalles, foto, envio};
-        actualizarProductoCatalogo(producto, idProducto);
+        //actualizarProductoCatalogo(producto, idProducto);
+        dispatch(ACTUALIZAR_PRODUCTO_CATALOGO_ACTION(idProducto, producto));
         vaciarFormulario();
         setModoEdicion(false);
     }
@@ -66,7 +73,8 @@ const Alta = () => {
         const respuesta = confirm("Desea eliminar el Producto #" + id + "?");
 
         if (respuesta) {
-            eliminarProductoCatalogo(id);
+            //eliminarProductoCatalogo(id);
+            dispatch(ELIMINAR_PRODUCTO_CATALOGO_ACTION(id));
         }
     }
 
@@ -117,7 +125,7 @@ const Alta = () => {
                     </div>
                 </div>
             </div>
-            {totalProductosCatalogo() > 0 ? <div className="container-fluid my-5">
+            {totalProductosCatalogo > 0 ? <div className="container-fluid my-5">
                 <div className="row">
                     <div className="col">
                         <table className="table">

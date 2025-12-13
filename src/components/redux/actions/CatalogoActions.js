@@ -1,0 +1,5 @@
+import { ACTUALIZAR_PRODUCTO_CATALOGO, AGREGAR_PRODUCTO_CATALOGO, ELIMINAR_PRODUCTO_CATALOGO } from "../types/CatalogoTypes";
+
+export const AGREGAR_PRODUCTO_CATALOGO_ACTION = (producto) => ({type:AGREGAR_PRODUCTO_CATALOGO, payload:producto})
+export const ACTUALIZAR_PRODUCTO_CATALOGO_ACTION = (id, producto) => ({type:ACTUALIZAR_PRODUCTO_CATALOGO, payload:{id, producto}})
+export const ELIMINAR_PRODUCTO_CATALOGO_ACTION = (id) => ({type:ELIMINAR_PRODUCTO_CATALOGO, payload:id})

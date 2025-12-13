@@ -1,14 +1,40 @@
 import { useContext } from "react"
 import MensajeError from "./MensajeError";
 import { ContextAPI } from "./context/ContextAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { AGREGAR_PEDIDO_ACTION, DECREMENTAR_ITEM_ACTION, ELIMINAR_PRODUCTO_CARRITO_ACTION, INCREMENTAR_ITEM_ACTION, VACIAR_CARRITO_ACTION } from "./redux/actions/CarritoActions";
 
 const CarritoDeCompras = () => {
-    const {carrito, totalProductosCarrito, sumaTotalProductosCarrito, vaciarCarrito, eliminarProductoCarrito, incrementarItem, decrementarItem, agregarPedido} = useContext(ContextAPI);
+    //const {carrito, totalProductosCarrito, sumaTotalProductosCarrito, vaciarCarrito, eliminarProductoCarrito, incrementarItem, decrementarItem, agregarPedido} = useContext(ContextAPI);
+    const carrito = useSelector((state) => state.carrito.items);
+    const totalProductosCarrito = useSelector((state) => state.carrito.cantidad);
+    const sumaTotalProductosCarrito = useSelector((state) => state.carrito.sumaTotal);
+    const dispatch = useDispatch();
 
-    if (totalProductosCarrito() == 0) {
+    if (totalProductosCarrito == 0) {
         return (
             <MensajeError texto={"No hay Productos en el Carrito!"} />
         )
+    }
+
+    const vaciarCarrito = () => {
+        dispatch(VACIAR_CARRITO_ACTION);
+    }
+
+    const eliminarProductoCarrito = (id) => {
+        dispatch(ELIMINAR_PRODUCTO_CARRITO_ACTION(id));
+    }
+
+    const incrementarItem = (id) => {        
+        dispatch(INCREMENTAR_ITEM_ACTION(id));
+    }
+
+    const decrementarItem = (id) => {
+        dispatch(DECREMENTAR_ITEM_ACTION(id));
+    }
+
+    const agregarPedido = () => {
+        dispatch(AGREGAR_PEDIDO_ACTION);
     }
 
     return (
@@ -54,13 +80,13 @@ const CarritoDeCompras = () => {
                     <table className="table">
                         <tbody>
                             <tr>
-                                <td>{totalProductosCarrito()} Productos</td>
-                                <td className="text-end"><b>${sumaTotalProductosCarrito()}</b></td>
+                                <td>{totalProductosCarrito} Productos</td>
+                                <td className="text-end"><b>${sumaTotalProductosCarrito}</b></td>
                             </tr>
                             <tr>
                                 <td>Total</td>
                                 <td className="text-end">
-                                    <b><i className="bi bi-cash-coin"></i> ${sumaTotalProductosCarrito()}</b>
+                                    <b><i className="bi bi-cash-coin"></i> ${sumaTotalProductosCarrito}</b>
                                 </td>
                             </tr>
                         </tbody>

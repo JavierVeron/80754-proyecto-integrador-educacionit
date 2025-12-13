@@ -2,9 +2,11 @@ import { Link } from "react-router-dom"
 import Logo from "./Logo"
 import { useContext } from "react"
 import { ContextAPI } from "./context/ContextAPI"
+import { useSelector } from "react-redux"
 
 const NavBar = () => {
-    const {totalProductosCarrito} = useContext(ContextAPI);
+    //const {totalProductosCarrito} = useContext(ContextAPI);
+    const totalProductosCarrito = useSelector((state) => state.carrito.cantidad);
 
     return (
         <div className="container-fluid bg-dark py-3">
@@ -20,7 +22,7 @@ const NavBar = () => {
                         </Link>
                         <Link to={"/carrito"} title="Carrito de Compras" className="position-relative">
                             <i className="bi bi-cart text-danger text-danger fs-4"></i>
-                            <span className="position-absolute top-0 end translate-middle badge rounded-pill bg-danger">{totalProductosCarrito()}</span>
+                            <span className="position-absolute top-0 end translate-middle badge rounded-pill bg-danger">{totalProductosCarrito}</span>
                         </Link>
                     </div>
                 </div>

@@ -1,8 +1,15 @@
 import { useContext } from "react"
 import { ContextAPI } from "./context/ContextAPI"
+import { useDispatch } from "react-redux"
+import { AGREGAR_PRODUCTO_CARRITO_ACTION } from "./redux/actions/CarritoActions";
 
 const Card = ({item}) => {
-    const {agregarProductoCarrito} = useContext(ContextAPI);
+    //const {agregarProductoCarrito} = useContext(ContextAPI);
+    const dispatch = useDispatch();
+
+    const agregarProductoCarrito = (id) => {
+        dispatch(AGREGAR_PRODUCTO_CARRITO_ACTION(id));
+    }
 
     return (
         <div className="col-md-4 mb-4">
