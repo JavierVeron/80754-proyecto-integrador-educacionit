@@ -1,16 +1,22 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Card from "./Card"
 import MensajeError from "./MensajeError";
-//import { ContextAPI } from "./context/ContextAPI";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "./Loading";
+import { FETCH_PRODUCTO_CATALOGO_ACTION } from "./redux/actions/CatalogoActions";
 
 const Catalogo = () => {
-    //const {productos, totalProductosCatalogo} = useContext(ContextAPI);
+    const catalogo = useSelector((state) => state.catalogo);
     const productos = useSelector((state) => state.catalogo.items);
     const totalProductosCatalogo = useSelector((state) => state.catalogo.cantidad);
+    const dispatch = useDispatch();
     const [items, setItems] = useState(productos);
-    const {id} = useParams();    
+    const {id} = useParams();
+
+    useEffect(() => {
+        dispatch(FETCH_PRODUCTO_CATALOGO_ACTION());        
+    }, [dispatch]);
 
     useEffect(() => {
         setItems(id ? productos.filter(item => item.categoria == id) : productos);
@@ -23,15 +29,17 @@ const Catalogo = () => {
     }
 
     return (
-        <div className="container my-5">
-            <div className="row">
-                {
-                    items.map(item => (
-                        <Card key={item.id} item={item} />
-                    ))
-                }
-            </div>
-        </div>
+        <>
+            {catalogo.loading ? <Loading /> :<div className="container my-5">
+                <div className="row">
+                    {
+                        items.map(item => (
+                            <Card key={item.id} item={item} />
+                        ))
+                    }
+                </div>
+            </div>}
+        </>
     )
 }
 

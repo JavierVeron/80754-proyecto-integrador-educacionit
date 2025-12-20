@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import MensajeError from "./MensajeError";
-import { ContextAPI } from "./context/ContextAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { ACTUALIZAR_PRODUCTO_CATALOGO_ACTION, AGREGAR_PRODUCTO_CATALOGO_ACTION, ELIMINAR_PRODUCTO_CATALOGO_ACTION } from "./redux/actions/CatalogoActions";
+import { ACTUALIZAR_PRODUCTO_CATALOGO_ACTION, AGREGAR_PRODUCTO_CATALOGO_ACTION, ELIMINAR_PRODUCTO_CATALOGO_ACTION, FETCH_PRODUCTO_CATALOGO_ACTION } from "./redux/actions/CatalogoActions";
 
 const Alta = () => {
-    //const {productos, totalProductosCatalogo, agregarProductoCatalogo, actualizarProductoCatalogo, eliminarProductoCatalogo} = useContext(ContextAPI);
     const productos = useSelector((state) => state.catalogo.items);
     const totalProductosCatalogo = useSelector((state) => state.catalogo.cantidad);
     const dispatch = useDispatch();
@@ -20,6 +18,10 @@ const Alta = () => {
     const [foto, setFoto] = useState("https://imagenes.compragamer.com/productos/compragamer_Imganen_general_45510_Notebook_Lenovo_ThinkBook_16_G6_ABP_16__AMD_Ryzen_5_7430U_8GB_SSD_512GB_WUXGA_MIL-STD-810H_FREEDOS_21KK009DAR_04fea36a-grn.jpg");
     const [envio, setEnvio] = useState(false);
     const [disabled, setDisabled] = useState(true);
+
+    useEffect(() => {
+        dispatch(FETCH_PRODUCTO_CATALOGO_ACTION());               
+    }, [dispatch]);
 
     useEffect(() => {
         if ((nombre != "") && (precio != "") && (stock != "") && (marca != "") && (categoria != "") && (detalles != "") && (foto != "")) {
@@ -42,7 +44,6 @@ const Alta = () => {
 
     const agregarProducto = () => {        
         const producto = {nombre, precio, stock, marca, categoria, detalles, foto, envio};
-        //agregarProductoCatalogo(producto);
         dispatch(AGREGAR_PRODUCTO_CATALOGO_ACTION(producto));
         vaciarFormulario();
     }
@@ -63,7 +64,6 @@ const Alta = () => {
 
     const editarProductoCatalogo = (idProducto) => {
         const producto = {nombre, precio, stock, marca, categoria, detalles, foto, envio};
-        //actualizarProductoCatalogo(producto, idProducto);
         dispatch(ACTUALIZAR_PRODUCTO_CATALOGO_ACTION(idProducto, producto));
         vaciarFormulario();
         setModoEdicion(false);
@@ -73,7 +73,6 @@ const Alta = () => {
         const respuesta = confirm("Desea eliminar el Producto #" + id + "?");
 
         if (respuesta) {
-            //eliminarProductoCatalogo(id);
             dispatch(ELIMINAR_PRODUCTO_CATALOGO_ACTION(id));
         }
     }
